@@ -5,258 +5,262 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#09090b">
-<title>Finance Calendar</title>
+<meta name="theme-color" content="#0a0c10">
+<title>Finance Planner</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💷</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #09090b;
-    --surface: #131318;
-    --surface2: #1c1c24;
-    --surface3: #25252f;
+    --bg: #0a0c10;
+    --bg2: #11141c;
+    --bg3: #181c28;
     --border: rgba(255,255,255,0.06);
-    --text: #fafafa;
-    --text2: #a1a1aa;
-    --text3: #52525b;
-    --income: #34d399;
-    --income-bg: rgba(52,211,153,0.12);
-    --bill: #f87171;
-    --bill-bg: rgba(248,113,113,0.12);
-    --savings: #fbbf24;
-    --savings-bg: rgba(251,191,36,0.12);
-    --accent: #818cf8;
-    --accent-bg: rgba(129,140,248,0.12);
-    --today: #818cf8;
-    --radius: 14px;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #475569;
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.15);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.12);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.15);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,0.15);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.15);
+    --pink: #f472b6;
+    --pink-dim: rgba(244,114,182,0.15);
   }
 
   body {
-    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-family: 'Outfit', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     min-height: 100dvh;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior: none;
-    user-select: none;
   }
 
-  /* ── Header ── */
   .header {
-    padding: 16px 20px 12px;
-    padding-top: max(16px, env(safe-area-inset-top, 16px));
-    display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 10;
-    background: var(--bg);
-  }
-  .header-title {
-    font-size: 20px; font-weight: 800; letter-spacing: -0.3px;
-  }
-  .header-month {
-    font-size: 13px; color: var(--text2); font-weight: 500; margin-top: 1px;
-  }
-
-  /* ── Month Nav ── */
-  .month-nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 20px 16px;
-  }
-  .month-label {
-    font-size: 18px; font-weight: 700; letter-spacing: -0.3px;
-  }
-  .month-year { color: var(--text2); font-weight: 500; }
-  .nav-btns { display: flex; gap: 8px; }
-  .nav-btn {
-    width: 38px; height: 38px; border-radius: 10px;
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--text); font-size: 16px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: all 0.15s;
-    font-family: inherit;
-  }
-  .nav-btn:active { background: var(--surface2); transform: scale(0.95); }
-  .today-btn {
-    padding: 0 14px; width: auto; font-size: 12px; font-weight: 600;
-    color: var(--accent);
-  }
-
-  /* ── Calendar Grid ── */
-  .cal-wrap { padding: 0 16px; }
-  .cal-grid {
-    display: grid; grid-template-columns: repeat(7, 1fr);
-    gap: 2px;
-  }
-  .day-header {
-    text-align: center; font-size: 11px; font-weight: 600;
-    color: var(--text3); padding: 6px 0 10px;
-    font-family: 'DM Mono', monospace; text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .day-cell {
-    aspect-ratio: 1;
-    display: flex; flex-direction: column; align-items: center;
-    justify-content: center; border-radius: 12px;
-    cursor: pointer; transition: all 0.15s;
-    position: relative; gap: 3px;
-  }
-  .day-cell:active { transform: scale(0.93); }
-  .day-cell.other-month { opacity: 0.2; }
-  .day-cell.today {
-    background: var(--accent-bg);
-    box-shadow: inset 0 0 0 1.5px var(--accent);
-  }
-  .day-cell.selected {
-    background: var(--surface2);
-    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.15);
-  }
-  .day-cell.today.selected {
-    background: var(--accent-bg);
-    box-shadow: inset 0 0 0 1.5px var(--accent);
-  }
-  .day-num {
-    font-size: 14px; font-weight: 600;
-    font-family: 'DM Mono', monospace;
-    line-height: 1;
-  }
-  .day-cell.today .day-num { color: var(--accent); font-weight: 700; }
-  .dot-row {
-    display: flex; gap: 3px; height: 5px; align-items: center;
-  }
-  .dot {
-    width: 5px; height: 5px; border-radius: 50%;
-  }
-  .dot.income { background: var(--income); }
-  .dot.bill { background: var(--bill); }
-  .dot.savings { background: var(--savings); }
-  .dot.savings-urgent { background: var(--savings); animation: pulse 1.5s infinite; }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* ── Detail Panel ── */
-  .detail-panel {
-    margin: 16px 16px 0;
-    padding: 0;
-    min-height: 160px;
-    transition: all 0.2s ease;
-  }
-  .detail-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px; font-weight: 500; color: var(--text3);
-    padding: 0 4px 10px;
+    padding: 20px 20px 16px;
+    padding-top: max(20px, env(safe-area-inset-top, 20px));
+    background: linear-gradient(135deg, #0f1219 0%, #141824 100%);
     border-bottom: 1px solid var(--border);
-    margin-bottom: 10px;
-    text-transform: uppercase; letter-spacing: 0.5px;
+    position: sticky; top: 0; z-index: 10;
   }
-  .detail-empty {
-    display: flex; align-items: center; justify-content: center;
-    height: 100px; color: var(--text3); font-size: 14px; font-weight: 500;
+  .header-row { display: flex; align-items: center; gap: 12px; }
+  .header h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .header .sub { font-size: 13px; color: var(--text2); font-weight: 400; margin-top: 2px; }
+
+  .tabs {
+    display: flex; gap: 4px; padding: 12px 16px;
+    position: sticky; top: 76px; z-index: 9;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 85%, transparent);
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 1; padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border);
+    background: transparent; color: var(--text2); font-size: 12px; font-weight: 600;
+    font-family: inherit; cursor: pointer; text-align: center; transition: all 0.2s;
+    white-space: nowrap; min-width: 0;
+  }
+  .tab.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+  .content { padding: 0 16px 120px; }
+
+  .section { margin-bottom: 20px; animation: fadeUp 0.4s ease both; }
+  .section-title {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+    color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 12px 4px 8px; border-bottom: 1px solid var(--border); margin-bottom: 10px;
   }
 
-  .event-card {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 14px; border-radius: 12px;
-    background: var(--surface); border: 1px solid var(--border);
-    margin-bottom: 8px;
-    animation: slideUp 0.25s ease both;
-  }
-  .event-card:nth-child(2) { animation-delay: 0.04s; }
-  .event-card:nth-child(3) { animation-delay: 0.08s; }
-  .event-card:nth-child(4) { animation-delay: 0.12s; }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(8px); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .event-indicator {
-    width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0;
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .summary-card {
+    padding: 16px; border-radius: 12px; background: var(--bg2); border: 1px solid var(--border);
   }
-  .event-indicator.income { background: var(--income); }
-  .event-indicator.bill { background: var(--bill); }
-  .event-indicator.savings, .event-indicator.savings-urgent { background: var(--savings); }
+  .summary-label { font-size: 12px; color: var(--text2); font-weight: 500; margin-bottom: 4px; }
+  .summary-value { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 700; }
+  .summary-value.green { color: var(--green); }
+  .summary-value.red { color: var(--red); }
+  .summary-value.blue { color: var(--blue); }
+  .summary-value.amber { color: var(--amber); }
+  .summary-sub { font-size: 11px; color: var(--text3); margin-top: 4px; font-family: 'IBM Plex Mono', monospace; }
 
-  .event-info { flex: 1; min-width: 0; }
-  .event-title { font-size: 14px; font-weight: 600; }
-  .event-detail {
-    font-size: 12px; color: var(--text2); margin-top: 2px;
-    font-family: 'DM Mono', monospace;
+  .line-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 14px; border-radius: 10px; background: var(--bg2);
+    border: 1px solid var(--border); margin-bottom: 8px;
   }
-  .event-amount {
-    font-family: 'DM Mono', monospace;
-    font-size: 14px; font-weight: 700; white-space: nowrap;
-  }
-  .event-amount.income { color: var(--income); }
-  .event-amount.bill { color: var(--bill); }
-  .event-amount.savings, .event-amount.savings-urgent { color: var(--savings); }
+  .line-left { display: flex; align-items: center; gap: 10px; }
+  .line-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .line-name { font-size: 14px; font-weight: 600; }
+  .line-detail { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .line-amount { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; white-space: nowrap; }
+  .line-amount.green { color: var(--green); }
+  .line-amount.red { color: var(--red); }
 
-  /* ── Legend ── */
-  .legend {
-    display: flex; gap: 16px; justify-content: center;
-    padding: 20px 0 32px;
-    padding-bottom: max(32px, env(safe-area-inset-bottom, 32px));
+  .goal-card {
+    padding: 16px; border-radius: 12px; background: var(--bg2);
+    border: 1px solid var(--border); margin-bottom: 10px;
   }
-  .legend-item {
-    display: flex; align-items: center; gap: 6px;
+  .goal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .goal-title { font-size: 16px; font-weight: 700; }
+  .goal-deadline {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .goal-deadline.urgent { background: var(--red-dim); color: var(--red); }
+  .goal-deadline.normal { background: var(--blue-dim); color: var(--blue); }
+  .goal-progress-bar {
+    height: 8px; border-radius: 4px; background: rgba(255,255,255,0.06);
+    overflow: hidden; margin-bottom: 8px;
+  }
+  .goal-progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+  .goal-stats {
+    display: flex; justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text2);
+  }
+
+  .forecast-item {
+    display: flex; gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid var(--border); align-items: flex-start;
+  }
+  .forecast-item:last-child { border-bottom: none; }
+  .forecast-date {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text3);
+    width: 56px; flex-shrink: 0; padding-top: 2px; text-align: right;
+  }
+  .forecast-body { flex: 1; }
+  .forecast-event { font-size: 13px; font-weight: 600; }
+  .forecast-balance { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 2px; }
+
+  .needed-banner {
+    padding: 14px 16px; border-radius: 12px; margin-bottom: 16px; border: 1px dashed;
+  }
+  .needed-banner.on-track { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.06); }
+  .needed-banner.at-risk { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.06); }
+  .needed-banner.behind { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.06); }
+  .needed-text { font-size: 13px; font-weight: 600; }
+  .needed-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
+
+  .footer {
+    position: fixed; bottom: 0; left: 0; right: 0; text-align: center;
+    padding: 16px 20px; padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    background: linear-gradient(0deg, var(--bg) 60%, transparent);
+    font-size: 11px; color: var(--text3); font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Calendar tab styles ── */
+  .cal-month-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 4px 0 12px;
+  }
+  .cal-month-label { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+  .cal-arrows { display: flex; gap: 6px; }
+  .cal-btn {
+    width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--bg2); color: var(--text2); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+    font-family: inherit;
+  }
+  .cal-btn:active { background: var(--bg3); transform: scale(0.95); }
+  .cal-today-btn {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--blue);
+    background: var(--blue-dim); border: none; padding: 5px 10px; border-radius: 8px;
+    cursor: pointer; font-weight: 600;
+  }
+
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 12px;
+  }
+  .cal-day-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+    color: var(--text3); text-align: center; padding: 6px 0; text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .cal-cell {
+    aspect-ratio: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; border-radius: 10px; cursor: pointer; position: relative;
+    transition: all 0.15s; gap: 3px;
+  }
+  .cal-cell:active { transform: scale(0.93); }
+  .cal-cell.other-month .cal-num { color: var(--text3); opacity: 0.3; }
+  .cal-cell.today { background: var(--blue-dim); }
+  .cal-cell.today .cal-num { color: var(--blue); font-weight: 800; }
+  .cal-cell.selected { background: var(--bg3); outline: 2px solid var(--blue); outline-offset: -2px; }
+  .cal-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;
+    color: var(--text); line-height: 1;
+  }
+  .cal-dots { display: flex; gap: 3px; height: 5px; }
+  .cal-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+  .cal-legend {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .cal-legend-item {
+    display: flex; align-items: center; gap: 5px;
     font-size: 11px; color: var(--text3); font-weight: 500;
   }
-  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .cal-legend-dot { width: 6px; height: 6px; border-radius: 50%; }
 
-  /* ── Month summary bar ── */
-  .month-summary {
-    display: flex; gap: 8px; padding: 0 16px 12px;
+  .cal-detail-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 0 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px;
   }
-  .summary-pill {
-    flex: 1; padding: 10px 12px; border-radius: 10px;
-    background: var(--surface); border: 1px solid var(--border);
-    text-align: center;
+  .cal-detail-date {
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text2);
   }
-  .pill-label { font-size: 10px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-  .pill-value { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 700; margin-top: 3px; }
-  .pill-value.income { color: var(--income); }
-  .pill-value.bill { color: var(--bill); }
-  .pill-value.net { color: var(--accent); }
+  .cal-detail-badge {
+    font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px;
+  }
+  .cal-event-card {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    border-radius: 10px; background: var(--bg2); border: 1px solid var(--border);
+    margin-bottom: 8px; animation: fadeUp 0.25s ease both;
+  }
+  .cal-event-stripe { width: 4px; height: 32px; border-radius: 2px; flex-shrink: 0; }
+  .cal-event-body { flex: 1; min-width: 0; }
+  .cal-event-title { font-size: 13px; font-weight: 600; }
+  .cal-event-note { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text3); margin-top: 1px; }
+  .cal-event-amount { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; white-space: nowrap; }
+
+  .cal-empty { text-align: center; padding: 30px 20px; color: var(--text3); font-size: 13px; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div>
-    <div class="header-title">💷 Finance</div>
+  <div class="header-row">
+    <span style="font-size:26px">💷</span>
+    <div>
+      <h1>Finance Planner</h1>
+      <p class="sub" id="headerDate"></p>
+    </div>
   </div>
 </div>
 
-<div class="month-nav">
-  <div>
-    <span class="month-label" id="monthLabel"></span>
-    <span class="month-year" id="yearLabel"></span>
-  </div>
-  <div class="nav-btns">
-    <button class="nav-btn today-btn" onclick="goToday()">Today</button>
-    <button class="nav-btn" onclick="prevMonth()">◀</button>
-    <button class="nav-btn" onclick="nextMonth()">▶</button>
-  </div>
+<div class="tabs">
+  <button class="tab active" onclick="showTab('summary')">Summary</button>
+  <button class="tab" onclick="showTab('forecast')">Forecast</button>
+  <button class="tab" onclick="showTab('goals')">Goals</button>
+  <button class="tab" onclick="showTab('calendar')">Calendar</button>
 </div>
 
-<div class="month-summary" id="monthSummary"></div>
+<div class="content" id="content"></div>
 
-<div class="cal-wrap">
-  <div class="cal-grid" id="calGrid"></div>
-</div>
-
-<div class="detail-panel" id="detailPanel"></div>
-
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot" style="background:var(--income)"></div> Income</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--bill)"></div> Bill</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--savings)"></div> Savings</div>
-</div>
+<div class="footer">Tell Claude in chat to update your figures</div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════
@@ -264,21 +268,21 @@
 // ═══════════════════════════════════════════════════════════════
 
 const INCOME = [
-  { name: "AW", type: "recurring-weeks", intervalWeeks: 4, anchorDate: "2026-03-27", amount: 1100 },
-  { name: "PIP", type: "recurring-weeks", intervalWeeks: 4, anchorDate: "2026-04-09", amount: 550 },
-  { name: "Night Work", type: "monthly-estimate", amount: 390, dayOfMonth: 15 },
-  { name: "UC", type: "monthly-date", dayOfMonth: 13, adjustWeekend: true, amount: 1376 },
-  { name: "Tebex", type: "monthly-estimate", amount: 550, dayOfMonth: 15 },
+  { name: "AW", type: "recurring-weeks", intervalWeeks: 4, anchorDate: "2026-03-27", amount: 1100, color: "#22c55e", note: "Every 4 weeks" },
+  { name: "PIP", type: "recurring-weeks", intervalWeeks: 4, anchorDate: "2026-04-09", amount: 550, color: "#3b82f6", note: "Every 4 weeks" },
+  { name: "Night Work", type: "monthly-estimate", amount: 390, color: "#a78bfa", note: "Sporadic ~3 days/wk × £30" },
+  { name: "UC", type: "monthly-date", dayOfMonth: 13, adjustWeekend: true, amount: 1376, color: "#f59e0b", note: "13th monthly (Fri if weekend)" },
+  { name: "Tebex", type: "monthly-estimate", amount: 550, color: "#f472b6", note: "Variable — withdraw as needed" },
 ];
 
 const OUTGOINGS = [
-  { name: "Rent", amount: 480, dayOfMonth: 1, type: "monthly" },
-  { name: "Gym", amount: 80, dayOfMonth: 1, type: "monthly" },
-  { name: "HelloFresh", amount: 55, type: "weekly", dayOfWeek: 2 }, // 0=Sun, 2=Tue
+  { name: "Rent", amount: 480, dayOfMonth: 1, type: "monthly", color: "#ef4444" },
+  { name: "Gym", amount: 80, dayOfMonth: 1, type: "monthly", color: "#fb923c" },
+  { name: "HelloFresh", amount: 238, dayOfMonth: 1, type: "monthly-estimate", note: "~£55/week", color: "#f97316" },
 ];
 
 const SAVINGS_GOALS = [
-  { name: "Holiday", target: 1200, saved: 277, deadline: "2026-05-18", priority: "critical" },
+  { name: "Holiday", target: 1200, saved: 277, deadline: "2026-05-18", priority: "critical", color: "#f59e0b" },
 ];
 
 const CURRENT_BALANCE = 8;
@@ -287,311 +291,299 @@ const CURRENT_BALANCE = 8;
 //  END FINANCE DATA
 // ═══════════════════════════════════════════════════════════════
 
-const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const MONTHS_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DAYS_SHORT = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
-function ds(d) { return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
-function dsFull(d) {
-  const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-  return days[d.getDay()] + " " + d.getDate() + " " + MONTHS[d.getMonth()];
+function today() { return new Date(); }
+function dateStr(d) { return d.toISOString().slice(0,10); }
+function fmtDate(d) { const dt = new Date(d+"T00:00:00"); return dt.getDate()+" "+MONTHS[dt.getMonth()]; }
+function daysBetween(a,b) { return Math.ceil((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/86400000); }
+function adjustForWeekend(d) {
+  const dt = new Date(d+"T00:00:00");
+  if (dt.getDay()===6) dt.setDate(dt.getDate()-1);
+  if (dt.getDay()===0) dt.setDate(dt.getDate()-2);
+  return dateStr(dt);
+}
+function nth(d) {
+  if (d>3&&d<21) return "th";
+  switch(d%10){case 1:return "st";case 2:return "nd";case 3:return "rd";default:return "th";}
+}
+function fmt(n) { return "£"+Math.abs(Math.round(n)).toLocaleString("en-GB"); }
+
+function monthlyIncome() {
+  return INCOME.reduce((s,i) => {
+    if (i.type==="recurring-weeks") return s+(i.amount*(52/i.intervalWeeks)/12);
+    return s+i.amount;
+  }, 0);
+}
+function monthlyOutgoings() { return OUTGOINGS.reduce((s,o) => s+o.amount, 0); }
+function monthlySavingsTarget() {
+  return SAVINGS_GOALS.reduce((s,g) => {
+    const d = daysBetween(dateStr(today()), g.deadline);
+    if (d<=0) return s;
+    return s+((g.target-g.saved)/Math.max(d/30,0.5));
+  }, 0);
 }
 
-function adjustWeekend(y, m, day) {
-  let d = new Date(y, m, day);
-  if (d.getDay() === 6) d.setDate(d.getDate() - 1);
-  if (d.getDay() === 0) d.setDate(d.getDate() - 2);
-  return d;
+function generateForecast(numDays) {
+  const events = [];
+  const start = today();
+  const startStr = dateStr(start);
+  const end = new Date(start); end.setDate(end.getDate()+numDays);
+  const endStr = dateStr(end);
+
+  INCOME.filter(i=>i.type==="recurring-weeks").forEach(inc => {
+    let d = new Date(inc.anchorDate+"T00:00:00");
+    while(dateStr(d)>startStr) d.setDate(d.getDate()-inc.intervalWeeks*7);
+    while(dateStr(d)<=endStr) {
+      if(dateStr(d)>=startStr) events.push({date:dateStr(d),name:inc.name,amount:inc.amount,type:"income",color:inc.color});
+      d.setDate(d.getDate()+inc.intervalWeeks*7);
+    }
+  });
+  INCOME.filter(i=>i.type==="monthly-date").forEach(inc => {
+    for(let m=start.getMonth()-1;m<=start.getMonth()+Math.ceil(numDays/30)+1;m++){
+      const yr=start.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+      let d=new Date(yr,mo,Math.min(inc.dayOfMonth,new Date(yr,mo+1,0).getDate()));
+      let ds=dateStr(d); if(inc.adjustWeekend) ds=adjustForWeekend(ds);
+      if(ds>=startStr&&ds<=endStr) events.push({date:ds,name:inc.name,amount:inc.amount,type:"income",color:inc.color});
+    }
+  });
+  INCOME.filter(i=>i.type==="monthly-estimate").forEach(inc => {
+    for(let m=start.getMonth();m<=start.getMonth()+Math.ceil(numDays/30)+1;m++){
+      const yr=start.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+      const ds=dateStr(new Date(yr,mo,15));
+      if(ds>=startStr&&ds<=endStr) events.push({date:ds,name:inc.name+" (est.)",amount:inc.amount,type:"income",color:inc.color});
+    }
+  });
+  OUTGOINGS.filter(o=>o.type==="monthly").forEach(out => {
+    for(let m=start.getMonth()-1;m<=start.getMonth()+Math.ceil(numDays/30)+1;m++){
+      const yr=start.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+      const ds=dateStr(new Date(yr,mo,Math.min(out.dayOfMonth,new Date(yr,mo+1,0).getDate())));
+      if(ds>=startStr&&ds<=endStr) events.push({date:ds,name:out.name,amount:-out.amount,type:"outgoing",color:out.color});
+    }
+  });
+  OUTGOINGS.filter(o=>o.type==="monthly-estimate").forEach(out => {
+    for(let m=start.getMonth();m<=start.getMonth()+Math.ceil(numDays/30)+1;m++){
+      const yr=start.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+      const ds=dateStr(new Date(yr,mo,1));
+      if(ds>=startStr&&ds<=endStr) events.push({date:ds,name:out.name+" (est.)",amount:-out.amount,type:"outgoing",color:out.color});
+    }
+  });
+
+  events.sort((a,b)=>a.date.localeCompare(b.date));
+  let bal=CURRENT_BALANCE;
+  events.forEach(e=>{bal+=e.amount;e.balance=bal;});
+  return events;
 }
 
-// Build events map for a given month range
-function getEventsForRange(startDate, endDate) {
+// ── Calendar event builder ──
+function buildCalEvents(startStr, endStr) {
   const events = {};
-  function add(d, evt) {
-    const key = ds(d);
-    if (!events[key]) events[key] = [];
-    events[key].push(evt);
-  }
+  const add = (ds, evt) => {
+    if (ds<startStr||ds>endStr) return;
+    if (!events[ds]) events[ds]=[];
+    events[ds].push(evt);
+  };
 
-  const startMs = startDate.getTime();
-  const endMs = endDate.getTime();
-
-  // Recurring-weeks income (AW, PIP)
-  INCOME.filter(i => i.type === "recurring-weeks").forEach(inc => {
-    let d = new Date(inc.anchorDate + "T00:00:00");
-    // go back far enough
-    while (d.getTime() > startMs) d.setDate(d.getDate() - inc.intervalWeeks * 7);
-    // go forward through range
-    while (d.getTime() <= endMs) {
-      if (d.getTime() >= startMs) {
-        add(new Date(d), { type: "income", name: inc.name, amount: inc.amount, detail: "Every " + inc.intervalWeeks + " weeks" });
-      }
-      d.setDate(d.getDate() + inc.intervalWeeks * 7);
+  INCOME.filter(i=>i.type==="recurring-weeks").forEach(inc => {
+    let d=new Date(inc.anchorDate+"T00:00:00");
+    while(dateStr(d)>startStr) d.setDate(d.getDate()-inc.intervalWeeks*7);
+    while(dateStr(d)<=endStr){
+      add(dateStr(d),{name:inc.name+" pay day",amount:inc.amount,dir:"in",colorVar:"green",icon:"💰"});
+      d.setDate(d.getDate()+inc.intervalWeeks*7);
     }
   });
-
-  // Monthly-date income (UC)
-  INCOME.filter(i => i.type === "monthly-date").forEach(inc => {
-    for (let m = startDate.getMonth() - 1; m <= endDate.getMonth() + 13; m++) {
-      const yr = startDate.getFullYear() + Math.floor(m / 12);
-      const mo = ((m % 12) + 12) % 12;
-      const maxDay = new Date(yr, mo + 1, 0).getDate();
-      let d = new Date(yr, mo, Math.min(inc.dayOfMonth, maxDay));
-      if (inc.adjustWeekend) d = adjustWeekend(yr, mo, Math.min(inc.dayOfMonth, maxDay));
-      if (d.getTime() >= startMs && d.getTime() <= endMs) {
-        add(d, { type: "income", name: inc.name, amount: inc.amount, detail: inc.dayOfMonth + "th monthly" });
-      }
+  INCOME.filter(i=>i.type==="monthly-date").forEach(inc => {
+    const s=new Date(startStr+"T00:00:00"),e=new Date(endStr+"T00:00:00");
+    for(let m=s.getMonth()-1;m<=e.getMonth()+1+(e.getFullYear()-s.getFullYear())*12;m++){
+      const yr=s.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+      let d=new Date(yr,mo,Math.min(inc.dayOfMonth,new Date(yr,mo+1,0).getDate()));
+      let ds=dateStr(d); if(inc.adjustWeekend) ds=adjustForWeekend(ds);
+      add(ds,{name:inc.name+" payment",amount:inc.amount,dir:"in",colorVar:"green",icon:"💰"});
     }
   });
-
-  // Monthly-estimate income
-  INCOME.filter(i => i.type === "monthly-estimate").forEach(inc => {
-    for (let m = startDate.getMonth() - 1; m <= endDate.getMonth() + 13; m++) {
-      const yr = startDate.getFullYear() + Math.floor(m / 12);
-      const mo = ((m % 12) + 12) % 12;
-      const d = new Date(yr, mo, inc.dayOfMonth || 15);
-      if (d.getTime() >= startMs && d.getTime() <= endMs) {
-        add(d, { type: "income", name: inc.name + " (est.)", amount: inc.amount, detail: "Monthly estimate" });
-      }
+  INCOME.filter(i=>i.type==="monthly-estimate").forEach(inc => {
+    const s=new Date(startStr+"T00:00:00"),e=new Date(endStr+"T00:00:00");
+    for(let m=s.getMonth();m<=e.getMonth()+(e.getFullYear()-s.getFullYear())*12;m++){
+      const yr=s.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+      add(dateStr(new Date(yr,mo,15)),{name:inc.name+" (est.)",amount:inc.amount,dir:"in",colorVar:"purple",icon:"🌙",note:inc.note});
     }
   });
-
-  // Monthly outgoings
-  OUTGOINGS.filter(o => o.type === "monthly").forEach(out => {
-    for (let m = startDate.getMonth() - 1; m <= endDate.getMonth() + 13; m++) {
-      const yr = startDate.getFullYear() + Math.floor(m / 12);
-      const mo = ((m % 12) + 12) % 12;
-      const maxDay = new Date(yr, mo + 1, 0).getDate();
-      const d = new Date(yr, mo, Math.min(out.dayOfMonth, maxDay));
-      if (d.getTime() >= startMs && d.getTime() <= endMs) {
-        add(d, { type: "bill", name: out.name, amount: out.amount, detail: out.dayOfMonth + "st monthly" });
+  OUTGOINGS.filter(o=>o.type==="monthly").forEach(out => {
+    const s=new Date(startStr+"T00:00:00"),e=new Date(endStr+"T00:00:00");
+    for(let m=s.getMonth()-1;m<=e.getMonth()+1+(e.getFullYear()-s.getFullYear())*12;m++){
+      const yr=s.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+      add(dateStr(new Date(yr,mo,Math.min(out.dayOfMonth,new Date(yr,mo+1,0).getDate()))),
+        {name:out.name,amount:out.amount,dir:"out",colorVar:"red",icon:"📄"});
+    }
+  });
+  OUTGOINGS.filter(o=>o.type==="weekly"||o.type==="monthly-estimate").forEach(out => {
+    if(out.type==="monthly-estimate"){
+      const s=new Date(startStr+"T00:00:00"),e=new Date(endStr+"T00:00:00");
+      for(let m=s.getMonth();m<=e.getMonth()+(e.getFullYear()-s.getFullYear())*12;m++){
+        const yr=s.getFullYear()+Math.floor(m/12);const mo=((m%12)+12)%12;
+        add(dateStr(new Date(yr,mo,1)),{name:out.name+" (est.)",amount:out.amount,dir:"out",colorVar:"red",icon:"📄",note:out.note});
       }
     }
   });
-
-  // Weekly outgoings
-  OUTGOINGS.filter(o => o.type === "weekly").forEach(out => {
-    let d = new Date(startDate);
-    // find first occurrence
-    while (d.getDay() !== out.dayOfWeek) d.setDate(d.getDate() + 1);
-    while (d.getTime() <= endMs) {
-      if (d.getTime() >= startMs) {
-        add(new Date(d), { type: "bill", name: out.name, amount: out.amount, detail: "Weekly" });
-      }
-      d.setDate(d.getDate() + 7);
-    }
-  });
-
-  // Savings goal deadlines and milestones
   SAVINGS_GOALS.forEach(g => {
-    const deadline = new Date(g.deadline + "T00:00:00");
-    if (deadline.getTime() >= startMs && deadline.getTime() <= endMs) {
-      add(deadline, {
-        type: "savings-urgent",
-        name: "🔥 " + g.name + " deadline",
-        amount: g.target,
-        detail: "£" + g.saved + " saved of £" + g.target
-      });
-    }
-    // Weekly Monday check-ins
-    let d = new Date(startDate);
-    while (d.getDay() !== 1) d.setDate(d.getDate() + 1);
-    const now = new Date();
-    while (d.getTime() <= endMs && d.getTime() <= deadline.getTime()) {
-      if (d.getTime() >= startMs) {
-        const daysLeft = Math.ceil((deadline - d) / 86400000);
-        const weeksLeft = Math.max(Math.floor(daysLeft / 7), 1);
-        const remaining = g.target - g.saved;
-        const perWeek = Math.round(remaining / weeksLeft);
-        add(new Date(d), {
-          type: daysLeft <= 14 ? "savings-urgent" : "savings",
-          name: g.name + " check-in",
-          amount: perWeek,
-          detail: daysLeft + "d left · £" + perWeek + "/wk needed"
-        });
-      }
-      d.setDate(d.getDate() + 7);
-    }
+    add(g.deadline,{name:g.name+" deadline",amount:g.target-g.saved,dir:"goal",colorVar:"amber",icon:"✈️",note:"£"+g.saved+" saved of £"+g.target});
   });
 
   return events;
 }
 
-// State
-let viewYear, viewMonth, selectedDate;
-const today = new Date();
-today.setHours(0,0,0,0);
+// ── State ──
+let currentTab = "summary";
+let calYear, calMonth, calSelected;
 
-function goToday() {
-  viewYear = today.getFullYear();
-  viewMonth = today.getMonth();
-  selectedDate = ds(today);
-  render();
-}
-
-function prevMonth() {
-  viewMonth--;
-  if (viewMonth < 0) { viewMonth = 11; viewYear--; }
-  selectedDate = null;
-  render();
-}
-
-function nextMonth() {
-  viewMonth++;
-  if (viewMonth > 11) { viewMonth = 0; viewYear++; }
-  selectedDate = null;
-  render();
-}
-
-function selectDay(key) {
-  selectedDate = key;
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    t.classList.toggle('active',['summary','forecast','goals','calendar'][i]===tab);
+  });
+  if(tab==='calendar'&&calYear===undefined){
+    calYear=today().getFullYear(); calMonth=today().getMonth(); calSelected=dateStr(today());
+  }
   render();
 }
 
 function render() {
-  // Month label
-  document.getElementById("monthLabel").textContent = MONTHS[viewMonth];
-  document.getElementById("yearLabel").textContent = viewYear;
+  document.getElementById("headerDate").textContent=
+    today().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  const el=document.getElementById("content");
 
-  // Calculate date range for events (prev month to next month for overflow)
-  const rangeStart = new Date(viewYear, viewMonth - 1, 1);
-  const rangeEnd = new Date(viewYear, viewMonth + 2, 0);
-  const events = getEventsForRange(rangeStart, rangeEnd);
-
-  // Calendar grid
-  const firstDay = new Date(viewYear, viewMonth, 1);
-  const lastDay = new Date(viewYear, viewMonth + 1, 0);
-  // Monday = 0
-  let startOffset = (firstDay.getDay() + 6) % 7;
-  const totalDays = lastDay.getDate();
-
-  let html = DAYS_SHORT.map(d => `<div class="day-header">${d}</div>`).join("");
-
-  // Previous month overflow
-  const prevLastDay = new Date(viewYear, viewMonth, 0).getDate();
-  for (let i = startOffset - 1; i >= 0; i--) {
-    const dayNum = prevLastDay - i;
-    const d = new Date(viewYear, viewMonth - 1, dayNum);
-    const key = ds(d);
-    const dayEvents = events[key] || [];
-    html += renderDayCell(dayNum, key, dayEvents, true, false);
-  }
-
-  // Current month
-  for (let d = 1; d <= totalDays; d++) {
-    const date = new Date(viewYear, viewMonth, d);
-    const key = ds(date);
-    const isToday = key === ds(today);
-    const dayEvents = events[key] || [];
-    html += renderDayCell(d, key, dayEvents, false, isToday);
-  }
-
-  // Next month overflow
-  const cellsUsed = startOffset + totalDays;
-  const remaining = (7 - (cellsUsed % 7)) % 7;
-  for (let d = 1; d <= remaining; d++) {
-    const date = new Date(viewYear, viewMonth + 1, d);
-    const key = ds(date);
-    const dayEvents = events[key] || [];
-    html += renderDayCell(d, key, dayEvents, true, false);
-  }
-
-  document.getElementById("calGrid").innerHTML = html;
-
-  // Month summary
-  let monthIn = 0, monthOut = 0;
-  for (let d = 1; d <= totalDays; d++) {
-    const date = new Date(viewYear, viewMonth, d);
-    const key = ds(date);
-    const dayEvents = events[key] || [];
-    dayEvents.forEach(e => {
-      if (e.type === "income") monthIn += e.amount;
-      if (e.type === "bill") monthOut += e.amount;
-    });
-  }
-  document.getElementById("monthSummary").innerHTML = `
-    <div class="summary-pill">
-      <div class="pill-label">In</div>
-      <div class="pill-value income">£${Math.round(monthIn).toLocaleString()}</div>
-    </div>
-    <div class="summary-pill">
-      <div class="pill-label">Out</div>
-      <div class="pill-value bill">£${Math.round(monthOut).toLocaleString()}</div>
-    </div>
-    <div class="summary-pill">
-      <div class="pill-label">Net</div>
-      <div class="pill-value net">£${Math.round(monthIn - monthOut).toLocaleString()}</div>
-    </div>
-  `;
-
-  // Detail panel
-  renderDetail(events);
+  if(currentTab==="summary") renderSummary(el);
+  else if(currentTab==="forecast") renderForecast(el);
+  else if(currentTab==="goals") renderGoals(el);
+  else if(currentTab==="calendar") renderCalendar(el);
 }
 
-function renderDayCell(num, key, evts, otherMonth, isToday) {
-  const isSelected = key === selectedDate;
-  const classes = [
-    "day-cell",
-    otherMonth ? "other-month" : "",
-    isToday ? "today" : "",
-    isSelected ? "selected" : "",
-  ].filter(Boolean).join(" ");
+function renderSummary(el) {
+  const inc=monthlyIncome(),out=monthlyOutgoings(),sav=monthlySavingsTarget(),disp=inc-out-sav;
+  el.innerHTML=`
+    <div class="summary-grid">
+      <div class="summary-card"><div class="summary-label">Monthly Income</div><div class="summary-value green">${fmt(inc)}</div><div class="summary-sub">${INCOME.length} sources</div></div>
+      <div class="summary-card"><div class="summary-label">Monthly Outgoings</div><div class="summary-value red">${fmt(out)}</div><div class="summary-sub">${OUTGOINGS.length} costs</div></div>
+      <div class="summary-card"><div class="summary-label">Savings Needed/mo</div><div class="summary-value amber">${fmt(sav)}</div><div class="summary-sub">to hit goals</div></div>
+      <div class="summary-card"><div class="summary-label">Disposable/mo</div><div class="summary-value ${disp>=0?'blue':'red'}">${disp<0?'-':''}${fmt(disp)}</div><div class="summary-sub">after bills + saving</div></div>
+    </div>
+    ${CURRENT_BALANCE===0?`<div class="needed-banner at-risk"><div class="needed-text">⚠️ Balance not set</div><div class="needed-sub">Tell Claude your current bank balance to unlock the forecast</div></div>`
+    :`<div class="needed-banner on-track"><div class="needed-text">Current Balance: ${fmt(CURRENT_BALANCE)}</div><div class="needed-sub">Tell Claude when this changes</div></div>`}
+    <div class="section"><div class="section-title">Income Sources</div>
+    ${INCOME.map(i=>`<div class="line-item"><div class="line-left"><div class="line-dot" style="background:${i.color}"></div><div><div class="line-name">${i.name}</div><div class="line-detail">${i.note||"Monthly"}</div></div></div><div class="line-amount green">+${fmt(i.amount)}</div></div>`).join("")}
+    </div>
+    <div class="section"><div class="section-title">Outgoings</div>
+    ${OUTGOINGS.map(o=>`<div class="line-item"><div class="line-left"><div class="line-dot" style="background:${o.color}"></div><div><div class="line-name">${o.name}</div><div class="line-detail">${o.note||(o.dayOfMonth+nth(o.dayOfMonth)+" monthly")}</div></div></div><div class="line-amount red">-${fmt(o.amount)}</div></div>`).join("")}
+    </div>`;
+}
 
-  // Collect unique event types for dots
-  const types = [...new Set(evts.map(e => e.type))];
+function renderForecast(el) {
+  const events=generateForecast(90);
+  let html='<div class="section"><div class="section-title">90-Day Forecast</div>';
+  if(CURRENT_BALANCE===0) html+=`<div class="needed-banner at-risk"><div class="needed-text">⚠️ Set your balance first</div><div class="needed-sub">Tell Claude your current bank balance so the running total is accurate</div></div>`;
+  let lastMonth="";
+  events.forEach(e=>{
+    const d=new Date(e.date+"T00:00:00");const ml=MONTHS[d.getMonth()]+" "+d.getFullYear();
+    if(ml!==lastMonth){html+=`<div style="font-size:12px;font-weight:700;color:var(--text2);padding:14px 0 6px;border-top:1px solid var(--border);margin-top:4px">${ml}</div>`;lastMonth=ml;}
+    const isInc=e.type==="income";const balCol=e.balance>=0?"var(--green)":"var(--red)";
+    html+=`<div class="forecast-item"><div class="forecast-date">${fmtDate(e.date)}</div><div class="forecast-body"><div class="forecast-event"><span style="color:${isInc?'var(--green)':'var(--red)'}">${isInc?'+':'-'}${fmt(e.amount)}</span><span style="color:var(--text2);font-weight:400;font-size:12px;margin-left:6px">${e.name}</span></div><div class="forecast-balance" style="color:${balCol}">Bal: ${e.balance<0?'-':''}${fmt(e.balance)}</div></div></div>`;
+  });
+  html+='</div>';el.innerHTML=html;
+}
 
-  return `
-    <div class="${classes}" onclick="selectDay('${key}')">
-      <span class="day-num">${num}</span>
-      <div class="dot-row">
-        ${types.map(t => `<div class="dot ${t}"></div>`).join("")}
+function renderGoals(el) {
+  let html="";
+  SAVINGS_GOALS.forEach(g=>{
+    const dLeft=daysBetween(dateStr(today()),g.deadline);const rem=g.target-g.saved;
+    const pct=Math.min((g.saved/g.target)*100,100);const wLeft=Math.max(Math.floor(dLeft/7),1);
+    const perWeek=rem/wLeft;const isUrgent=dLeft<=30;
+    let statusClass,statusText;
+    if(pct>=100){statusClass="on-track";statusText="Goal reached!";}
+    else if(dLeft<=0){statusClass="behind";statusText="Deadline passed!";}
+    else if(dLeft>30){statusClass="on-track";statusText=dLeft+" days left — "+fmt(perWeek)+"/week needed";}
+    else if(dLeft>14){statusClass="at-risk";statusText=dLeft+" days left — "+fmt(perWeek)+"/week needed";}
+    else{statusClass="behind";statusText="Only "+dLeft+" days left — "+fmt(perWeek)+"/week needed!";}
+    const fillCol=g.priority==="critical"?"linear-gradient(90deg, var(--amber), var(--pink))":"linear-gradient(90deg, var(--blue), var(--purple))";
+    html+=`<div class="section"><div class="goal-card"><div class="goal-header"><div class="goal-title">${g.priority==="critical"?"🔥 ":""}${g.name}</div><div class="goal-deadline ${isUrgent?'urgent':'normal'}">${fmtDate(g.deadline)}</div></div><div class="goal-progress-bar"><div class="goal-progress-fill" style="width:${pct}%;background:${fillCol}"></div></div><div class="goal-stats"><span>${fmt(g.saved)} saved</span><span>${fmt(rem)} to go</span><span>${fmt(g.target)} total</span></div></div><div class="needed-banner ${statusClass}"><div class="needed-text">${statusText}</div><div class="needed-sub">${g.priority==="critical"?"⚠️ Priority goal — must hit deadline":"Flexible goal"}</div></div></div>`;
+  });
+  el.innerHTML=html;
+}
+
+function renderCalendar(el) {
+  const todayS=dateStr(today());
+  const firstDay=new Date(calYear,calMonth,1);
+  const lastDay=new Date(calYear,calMonth+1,0);
+  let startDow=firstDay.getDay()-1; if(startDow<0) startDow=6;
+  const rows=Math.ceil((startDow+lastDay.getDate())/7);
+  const rangeStart=new Date(calYear,calMonth,1-startDow);
+  const rangeEnd=new Date(calYear,calMonth,1-startDow+rows*7-1);
+  const events=buildCalEvents(dateStr(rangeStart),dateStr(rangeEnd));
+
+  const colorMap={green:"var(--green)",red:"var(--red)",amber:"var(--amber)",purple:"var(--purple)",blue:"var(--blue)",pink:"var(--pink)"};
+
+  let html=`
+    <div class="cal-month-nav">
+      <div class="cal-month-label">${MONTHS_FULL[calMonth]} ${calYear}</div>
+      <div class="cal-arrows">
+        <button class="cal-today-btn" onclick="calGoToday()">Today</button>
+        <button class="cal-btn" onclick="calPrev()">‹</button>
+        <button class="cal-btn" onclick="calNext()">›</button>
       </div>
     </div>
-  `;
-}
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--red)"></div>Bill</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green)"></div>Pay day</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--amber)"></div>Savings</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--purple)"></div>Estimate</div>
+    </div>
+    <div class="cal-grid">`;
 
-function renderDetail(events) {
-  const panel = document.getElementById("detailPanel");
+  DAYS_SHORT.forEach(d=>{html+=`<div class="cal-day-label">${d}</div>`;});
 
-  if (!selectedDate) {
-    panel.innerHTML = `<div class="detail-empty">Tap a day to see what's due</div>`;
-    return;
+  for(let i=0;i<rows*7;i++){
+    const cd=new Date(rangeStart);cd.setDate(cd.getDate()+i);
+    const cs=dateStr(cd);const isThisMonth=cd.getMonth()===calMonth;
+    const isToday=cs===todayS;const isSel=cs===calSelected;
+    const de=events[cs]||[];
+    const dots=[...new Set(de.map(e=>e.colorVar))].slice(0,3);
+    const cls=["cal-cell",!isThisMonth?"other-month":"",isToday?"today":"",isSel?"selected":""].filter(Boolean).join(" ");
+    html+=`<div class="${cls}" onclick="calSelect('${cs}')"><span class="cal-num">${cd.getDate()}</span><div class="cal-dots">${dots.map(c=>`<div class="cal-dot" style="background:${colorMap[c]||'var(--text3)'}"></div>`).join("")}</div></div>`;
   }
 
-  // Parse selected date
-  const parts = selectedDate.split("-");
-  const selDate = new Date(+parts[0], +parts[1] - 1, +parts[2]);
-  const dayEvents = events[selectedDate] || [];
+  html+=`</div>`;
 
-  let html = `<div class="detail-date">${dsFull(selDate)}</div>`;
-
-  if (dayEvents.length === 0) {
-    html += `<div class="detail-empty">Nothing scheduled</div>`;
+  // Detail
+  if(calSelected){
+    const selEvents=events[calSelected]||[];
+    const sd=new Date(calSelected+"T00:00:00");
+    const dl=sd.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
+    html+=`<div class="cal-detail-bar"><div class="cal-detail-date">${dl}</div>${calSelected===todayS?`<div class="cal-detail-badge" style="background:var(--blue-dim);color:var(--blue)">TODAY</div>`:""}</div>`;
+    if(selEvents.length===0){
+      html+=`<div class="cal-empty">✨ Nothing scheduled</div>`;
+    } else {
+      selEvents.forEach((evt,i)=>{
+        const dotCol=colorMap[evt.colorVar]||"var(--text3)";
+        const amtCol=evt.dir==="in"?"var(--green)":evt.dir==="out"?"var(--red)":"var(--amber)";
+        const prefix=evt.dir==="in"?"+":evt.dir==="out"?"-":"";
+        html+=`<div class="cal-event-card" style="animation-delay:${i*0.05}s"><div class="cal-event-stripe" style="background:${dotCol}"></div><div class="cal-event-body"><div class="cal-event-title">${evt.icon} ${evt.name}</div>${evt.note?`<div class="cal-event-note">${evt.note}</div>`:""}</div><div class="cal-event-amount" style="color:${amtCol}">${prefix}${fmt(evt.amount)}</div></div>`;
+      });
+    }
   } else {
-    dayEvents.forEach(e => {
-      const prefix = e.type === "income" ? "+" : e.type === "bill" ? "-" : "";
-      html += `
-        <div class="event-card">
-          <div class="event-indicator ${e.type}"></div>
-          <div class="event-info">
-            <div class="event-title">${e.name}</div>
-            <div class="event-detail">${e.detail}</div>
-          </div>
-          <div class="event-amount ${e.type}">${prefix}£${e.amount.toLocaleString()}</div>
-        </div>
-      `;
-    });
+    html+=`<div class="cal-empty">Tap a date to see details</div>`;
   }
 
-  panel.innerHTML = html;
+  el.innerHTML=html;
 }
 
-// Init
-goToday();
+function calSelect(ds){calSelected=ds;render();}
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}calSelected=null;render();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}calSelected=null;render();}
+function calGoToday(){calYear=today().getFullYear();calMonth=today().getMonth();calSelected=dateStr(today());render();}
 
-// Service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
+render();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 </script>
 </body>
 </html>
