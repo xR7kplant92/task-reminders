@@ -1,4 +1,4 @@
-const CACHE_NAME = 'task-reminders-v1';
+const CACHE_NAME = 'finance-planner-v1';
 
 self.addEventListener('install', event => {
   event.waitUntil(
