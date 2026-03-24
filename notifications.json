@@ -1,252 +1,252 @@
 [
   {
-    "date": "2026-03-24",
+    "date": "2026-3-24",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-03-27",
+    "date": "2026-3-27",
     "type": "payday",
     "title": "💰 AW pay day",
     "detail": "£1100 incoming"
   },
   {
-    "date": "2026-03-30",
+    "date": "2026-3-30",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "49 days left · £132/week needed · £923 to go"
   },
   {
-    "date": "2026-03-31",
+    "date": "2026-3-31",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-04-01",
+    "date": "2026-4-1",
     "type": "bill",
     "title": "📄 Rent due",
     "detail": "£480 outgoing"
   },
   {
-    "date": "2026-04-01",
+    "date": "2026-4-1",
     "type": "bill",
     "title": "📄 Gym due",
     "detail": "£80 outgoing"
   },
   {
-    "date": "2026-04-06",
+    "date": "2026-4-6",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "42 days left · £154/week needed · £923 to go"
   },
   {
-    "date": "2026-04-07",
+    "date": "2026-4-7",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-04-09",
+    "date": "2026-4-9",
     "type": "payday",
     "title": "💰 PIP pay day",
     "detail": "£550 incoming"
   },
   {
-    "date": "2026-04-13",
+    "date": "2026-4-13",
     "type": "payday",
     "title": "💰 UC payment",
     "detail": "£1376 incoming"
   },
   {
-    "date": "2026-04-13",
+    "date": "2026-4-13",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "35 days left · £185/week needed · £923 to go"
   },
   {
-    "date": "2026-04-14",
+    "date": "2026-4-14",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-04-18",
+    "date": "2026-4-18",
     "type": "savings-urgent",
     "title": "⚠️ Holiday — 30 days left!",
-    "detail": "£923 still needed by 2026-05-18"
+    "detail": "£923 still needed by 2026-5-18"
   },
   {
-    "date": "2026-04-20",
+    "date": "2026-4-20",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "28 days left · £231/week needed · £923 to go"
   },
   {
-    "date": "2026-04-21",
+    "date": "2026-4-21",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-04-24",
+    "date": "2026-4-24",
     "type": "payday",
     "title": "💰 AW pay day",
     "detail": "£1100 incoming"
   },
   {
-    "date": "2026-04-27",
+    "date": "2026-4-27",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "21 days left · £308/week needed · £923 to go"
   },
   {
-    "date": "2026-04-28",
+    "date": "2026-4-28",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-05-01",
+    "date": "2026-5-1",
     "type": "bill",
     "title": "📄 Rent due",
     "detail": "£480 outgoing"
   },
   {
-    "date": "2026-05-01",
+    "date": "2026-5-1",
     "type": "bill",
     "title": "📄 Gym due",
     "detail": "£80 outgoing"
   },
   {
-    "date": "2026-05-04",
+    "date": "2026-5-4",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "14 days left · £462/week needed · £923 to go"
   },
   {
-    "date": "2026-05-04",
+    "date": "2026-5-4",
     "type": "savings-urgent",
     "title": "⚠️ Holiday — 14 days left!",
-    "detail": "£923 still needed by 2026-05-18"
+    "detail": "£923 still needed by 2026-5-18"
   },
   {
-    "date": "2026-05-05",
+    "date": "2026-5-5",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-05-07",
+    "date": "2026-5-7",
     "type": "payday",
     "title": "💰 PIP pay day",
     "detail": "£550 incoming"
   },
   {
-    "date": "2026-05-11",
+    "date": "2026-5-11",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "7 days left · £923/week needed · £923 to go"
   },
   {
-    "date": "2026-05-11",
+    "date": "2026-5-11",
     "type": "savings-urgent",
     "title": "⚠️ Holiday — 7 days left!",
-    "detail": "£923 still needed by 2026-05-18"
+    "detail": "£923 still needed by 2026-5-18"
   },
   {
-    "date": "2026-05-12",
+    "date": "2026-5-12",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-05-13",
+    "date": "2026-5-13",
     "type": "payday",
     "title": "💰 UC payment",
     "detail": "£1376 incoming"
   },
   {
-    "date": "2026-05-15",
+    "date": "2026-5-15",
     "type": "savings-urgent",
     "title": "⚠️ Holiday — 3 days left!",
-    "detail": "£923 still needed by 2026-05-18"
+    "detail": "£923 still needed by 2026-5-18"
   },
   {
-    "date": "2026-05-17",
+    "date": "2026-5-17",
     "type": "savings-urgent",
     "title": "⚠️ Holiday — 1 day left!",
-    "detail": "£923 still needed by 2026-05-18"
+    "detail": "£923 still needed by 2026-5-18"
   },
   {
-    "date": "2026-05-18",
+    "date": "2026-5-18",
     "type": "savings",
     "title": "🎯 Holiday goal check-in",
     "detail": "0 days left · £923/week needed · £923 to go"
   },
   {
-    "date": "2026-05-19",
+    "date": "2026-5-19",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-05-22",
+    "date": "2026-5-22",
     "type": "payday",
     "title": "💰 AW pay day",
     "detail": "£1100 incoming"
   },
   {
-    "date": "2026-05-26",
+    "date": "2026-5-26",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-06-01",
+    "date": "2026-6-1",
     "type": "bill",
     "title": "📄 Rent due",
     "detail": "£480 outgoing"
   },
   {
-    "date": "2026-06-01",
+    "date": "2026-6-1",
     "type": "bill",
     "title": "📄 Gym due",
     "detail": "£80 outgoing"
   },
   {
-    "date": "2026-06-02",
+    "date": "2026-6-2",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-06-04",
+    "date": "2026-6-4",
     "type": "payday",
     "title": "💰 PIP pay day",
     "detail": "£550 incoming"
   },
   {
-    "date": "2026-06-09",
+    "date": "2026-6-9",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-06-12",
+    "date": "2026-6-12",
     "type": "payday",
     "title": "💰 UC payment",
     "detail": "£1376 incoming"
   },
   {
-    "date": "2026-06-16",
+    "date": "2026-6-16",
     "type": "bill",
     "title": "📄 HelloFresh due",
     "detail": "£55 outgoing"
   },
   {
-    "date": "2026-06-19",
+    "date": "2026-6-19",
     "type": "payday",
     "title": "💰 AW pay day",
     "detail": "£1100 incoming"
